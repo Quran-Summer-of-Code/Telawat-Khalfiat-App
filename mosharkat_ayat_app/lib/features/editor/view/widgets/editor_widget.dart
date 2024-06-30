@@ -1,9 +1,59 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Editor_Widget extends StatelessWidget {
+class Editor_Widget extends StatefulWidget {
   final String gifUrl;
-  const Editor_Widget({super.key, required this.gifUrl});
+  final List<String> audioUrls;
+  final List<String> ayah;
+  const Editor_Widget(
+      {super.key,
+      required this.gifUrl,
+      required this.audioUrls,
+      required this.ayah});
+
+  @override
+  State<Editor_Widget> createState() => _Editor_WidgetState();
+}
+
+class _Editor_WidgetState extends State<Editor_Widget> {
+  final AudioPlayer _audioPlayer = AudioPlayer();
+  int _currentAudioIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _playAudio(_currentAudioIndex);
+    _audioPlayer.onPlayerComplete.listen((event) {
+      _onAudioComplete();
+    });
+  }
+
+  void _playAudio(int index) async {
+    if (index < widget.audioUrls.length) {
+      await _audioPlayer.play(UrlSource(widget.audioUrls[index]));
+    }
+  }
+
+  void _onAudioComplete() {
+    if (_currentAudioIndex < widget.audioUrls.length - 1) {
+      // Move to the next audio file
+      setState(() {
+        _currentAudioIndex++;
+      });
+
+      _playAudio(_currentAudioIndex);
+    } else {
+      // Reset or handle completion of all audios
+      print("All audios completed");
+    }
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +67,7 @@ class Editor_Widget extends StatelessWidget {
           height: 0.8.sh,
           child: Stack(
             children: [
-              Image.network(gifUrl),
+              Image.network(widget.gifUrl),
               SizedBox(
                 width: 0.9.sw,
                 height: 0.8.sh,
@@ -33,8 +83,12 @@ class Editor_Widget extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("اللهم صل وسلم على سيدنا محمد",
-                              style: TextStyle(color: Colors.white)),
+                          Text(widget.ayah[_currentAudioIndex],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
                         ],
                       ),
                     )

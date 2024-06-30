@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(1080, 2220),
-      builder: (_, context) => const MaterialApp(
+      builder: (_, context) => MaterialApp(
         title: 'Mosharkat Ayat App',
         home: Editor_Screen(),
       ),
