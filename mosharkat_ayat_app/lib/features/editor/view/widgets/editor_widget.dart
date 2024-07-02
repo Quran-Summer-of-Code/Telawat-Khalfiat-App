@@ -43,9 +43,6 @@ class _Editor_WidgetState extends State<Editor_Widget> {
       });
 
       _playAudio(_currentAudioIndex);
-    } else {
-      // Reset or handle completion of all audios
-      print("All audios completed");
     }
   }
 
@@ -74,7 +71,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("بِسْمِ ٱللّٰهِِ الرَّحْمٰنِ الرَّحِيْمِ",
+                    const Text("بِسْمِ ٱللّٰهِِ الرَّحْمٰنِ الرَّحِيْمِ",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
                     SizedBox(
@@ -85,8 +82,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                         children: [
                           Text(widget.ayah[_currentAudioIndex],
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
+                                  fontFamily: "Basmala",
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold)),
                         ],
