@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mosharkat_ayat_app/features/editor/view/screens/Editor_Screen.dart';
+import 'package:mosharkat_ayat_app/app/route.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,9 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(1080, 2220),
-      builder: (_, context) => MaterialApp(
+      builder: (_, context) => const MaterialApp(
+        initialRoute: RouteClass.home,
+        onGenerateRoute: RouteClass.generateRoute,
         title: 'Mosharkat Ayat App',
-        home: Editor_Screen(),
       ),
     );
   }

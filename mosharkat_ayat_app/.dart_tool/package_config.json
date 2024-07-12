@@ -2,6 +2,12 @@
   "configVersion": 2,
   "packages": [
     {
+      "name": "animated_text_kit",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/animated_text_kit-4.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "async",
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/async-2.11.0",
       "packageUri": "lib/",
@@ -122,6 +128,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "flutter_riverpod",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_riverpod-2.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_screenutil",
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_screenutil-5.9.3",
       "packageUri": "lib/",
@@ -207,7 +219,7 @@
     },
     {
       "name": "path_provider_android",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.6",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_android-2.2.7",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -231,9 +243,9 @@
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.2.1",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/path_provider_windows-2.3.0",
       "packageUri": "lib/",
-      "languageVersion": "2.19"
+      "languageVersion": "3.2"
     },
     {
       "name": "platform",
@@ -246,6 +258,12 @@
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/plugin_platform_interface-2.1.8",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "riverpod",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/riverpod-2.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "sky_engine",
@@ -270,6 +288,12 @@
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/stack_trace-1.11.1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
+    },
+    {
+      "name": "state_notifier",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/state_notifier-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "stream_channel",
@@ -309,7 +333,7 @@
     },
     {
       "name": "uuid",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.4.0",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/uuid-4.4.2",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -332,12 +356,6 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "win32",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/win32-5.5.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.4"
-    },
-    {
       "name": "xdg_directories",
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/xdg_directories-1.0.4",
       "packageUri": "lib/",
@@ -350,7 +368,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-07-02T11:20:14.205800Z",
+  "generated": "2024-07-12T03:28:07.830641Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///A:/Flutter/Setups/SDK/flutter",

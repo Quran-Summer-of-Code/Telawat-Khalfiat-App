@@ -6,6 +6,7 @@ class Editor_Widget extends StatefulWidget {
   final String gifUrl;
   final List<String> audioUrls;
   final List<String> ayah;
+
   const Editor_Widget(
       {super.key,
       required this.gifUrl,
@@ -19,6 +20,18 @@ class Editor_Widget extends StatefulWidget {
 class _Editor_WidgetState extends State<Editor_Widget> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   int _currentAudioIndex = 0;
+  Duration duration = Duration(seconds: 36);
+
+  void _onAudioComplete() {
+    if (_currentAudioIndex < widget.audioUrls.length - 1) {
+      // Move to the next audio file
+      setState(() {
+        _currentAudioIndex++;
+      });
+
+      _playAudio(_currentAudioIndex);
+    }
+  }
 
   @override
   void initState() {
@@ -35,17 +48,6 @@ class _Editor_WidgetState extends State<Editor_Widget> {
     }
   }
 
-  void _onAudioComplete() {
-    if (_currentAudioIndex < widget.audioUrls.length - 1) {
-      // Move to the next audio file
-      setState(() {
-        _currentAudioIndex++;
-      });
-
-      _playAudio(_currentAudioIndex);
-    }
-  }
-
   @override
   void dispose() {
     _audioPlayer.dispose();
@@ -58,24 +60,32 @@ class _Editor_WidgetState extends State<Editor_Widget> {
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          margin: EdgeInsets.only(left: 0.05.sw, right: 0.05.sw),
-          width: 0.9.sw,
-          height: 0.8.sh,
+        SizedBox(
+          //margin: EdgeInsets.only(left: 0.05.sw, right: 0.05.sw),
+          width: 1.sw,
+          height: 1.sh,
           child: Stack(
             children: [
-              Image.network(widget.gifUrl),
+              //caching the image
+              //opacity: Opacity(0.5), or birhgtness: Brightness.dark
+              Container(
+                color: Colors.black,
+                child: Image.asset(
+                  widget.gifUrl,
+                ),
+              ),
               SizedBox(
                 width: 0.9.sw,
-                height: 0.8.sh,
+                height: 0.9.sh,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text("بِسْمِ ٱللّٰهِِ الرَّحْمٰنِ الرَّحِيْمِ",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold)),
+                    //TODO : Center the text
                     SizedBox(
-                      width: 0.9.sw,
+                      width: 1.sw,
                       height: 0.6.sh,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -84,9 +94,13 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   color: Colors.white,
-                                  fontFamily: "Basmala",
+                                  fontFamily: "Newmet",
                                   fontSize: 24,
+                                  height: 2,
                                   fontWeight: FontWeight.bold)),
+                          // animatedWidget(
+                          //     ayah: widget.ayah[_currentAudioIndex],
+                          //     duration: duration),
                         ],
                       ),
                     )
