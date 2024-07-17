@@ -30,6 +30,11 @@ class _Editor_WidgetState extends State<Editor_Widget> {
       });
 
       _playAudio(_currentAudioIndex);
+    } else {
+      setState(() {
+        _currentAudioIndex = 0;
+      });
+      _playAudio(_currentAudioIndex);
     }
   }
 
@@ -56,61 +61,60 @@ class _Editor_WidgetState extends State<Editor_Widget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          //margin: EdgeInsets.only(left: 0.05.sw, right: 0.05.sw),
-          width: 1.sw,
-          height: 1.sh,
-          child: Stack(
-            children: [
-              //caching the image
-              //opacity: Opacity(0.5), or birhgtness: Brightness.dark
-              Container(
-                color: Colors.black,
-                child: Image.asset(
-                  widget.gifUrl,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            //margin: EdgeInsets.only(left: 0.05.sw, right: 0.05.sw),
+            width: 0.8.sw,
+            height: 0.8.sh,
+            child: Stack(
+              children: [
+                //caching the image
+                //opacity: Opacity(0.5), or birhgtness: Brightness.dark
+                Container(
+                  color: Colors.black,
+                  child: Image.asset(
+                    "assets/backgrounds/${widget.gifUrl}",
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 0.9.sw,
-                height: 0.9.sh,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text("بِسْمِ ٱللّٰهِِ الرَّحْمٰنِ الرَّحِيْمِ",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold)),
-                    //TODO : Center the text
-                    SizedBox(
-                      width: 1.sw,
-                      height: 0.6.sh,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(widget.ayah[_currentAudioIndex],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: "Newmet",
-                                  fontSize: 24,
-                                  height: 2,
-                                  fontWeight: FontWeight.bold)),
-                          // animatedWidget(
-                          //     ayah: widget.ayah[_currentAudioIndex],
-                          //     duration: duration),
-                        ],
-                      ),
-                    )
-                  ],
+                SizedBox(
+                  width: 0.9.sw,
+                  height: 0.9.sh,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text("بِسْمِ ٱللّٰهِِ الرَّحْمٰنِ الرَّحِيْمِ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold)),
+                      //TODO : Center the text
+                      SizedBox(
+                        width: 1.sw,
+                        height: 0.6.sh,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(widget.ayah[_currentAudioIndex],
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Newmet",
+                                    fontSize: 24,
+                                    height: 2,
+                                    fontWeight: FontWeight.bold)),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
-    ));
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

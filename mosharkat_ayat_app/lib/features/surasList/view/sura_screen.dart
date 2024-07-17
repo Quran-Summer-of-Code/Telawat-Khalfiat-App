@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/ayah_model.dart';
 import 'package:mosharkat_ayat_app/features/surasList/view/widgets/ayahItem.dart';
+import 'package:mosharkat_ayat_app/features/surasList/view/widgets/creation_button.dart';
 import 'package:mosharkat_ayat_app/features/surasList/view_model/suras_provider.dart';
 
 class SuraScreen extends ConsumerWidget {
@@ -10,10 +11,16 @@ class SuraScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ayatAyncValue = ref.watch(ayatProvider);
-
-    return SafeArea(
-      child: Scaffold(
+    return SafeArea(child: Consumer(builder: (context, ref, child) {
+      final ayatAyncValue = ref.watch(ayatProvider);
+      return Scaffold(
+        floatingActionButton: ayatAyncValue.when(
+          data: (List<List<Ayah>> ayahs) => CreationButton(
+              numberOfAyahs: ayahs[numberofsura].length,
+              numberofsura: numberofsura),
+          error: (error, stack) => const SizedBox(),
+          loading: () => const CircularProgressIndicator(),
+        ),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 8, 90, 50),
           title: const Center(
@@ -40,7 +47,7 @@ class SuraScreen extends ConsumerWidget {
                 ),
             error: (error, stack) => Text('Error: $error'),
             loading: () => const CircularProgressIndicator()),
-      ),
-    );
+      );
+    }));
   }
 }
