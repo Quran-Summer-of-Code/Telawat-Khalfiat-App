@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mosharkat_ayat_app/features/editor/model/audioBitrate.dart';
 import 'package:mosharkat_ayat_app/features/editor/view/widgets/editor_widget.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/ayah_model.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/sura_model.dart';
@@ -21,11 +22,6 @@ class Editor_Screen extends StatefulWidget {
 }
 
 class _Editor_ScreenState extends State<Editor_Screen> {
-  // final List<String> temp = [
-  //   "https://cdn.islamic.network/quran/audio/128/ar.alafasy/32.mp3",
-  //   "https://cdn.islamic.network/quran/audio/128/ar.alafasy/32.mp3",
-  // ];
-
   @override
   Widget build(BuildContext context) {
     List<String> ayah = [];
@@ -41,11 +37,11 @@ class _Editor_ScreenState extends State<Editor_Screen> {
             data: (List<Sura> suras) {
               ayatAyncValue.when(
                 data: (List<List<Ayah>> ayahs) {
+                  int? _bitRate = bitRate[widget.sheikh];
                   for (int i = widget.start - 1; i < widget.end; i++) {
                     ayah.add(ayahs[widget.numberOfSura][i].ayah);
                     audio.add(
-                        "https://cdn.islamic.network/quran/audio/128/ar.alafasy/${suras[widget.numberOfSura].firstAyah + i + 2}.mp3");
-                    print(audio[i]);
+                        "https://cdn.islamic.network/quran/audio/${_bitRate}/${widget.sheikh}/${suras[widget.numberOfSura].firstAyah + i + 2}.mp3");
                   }
                 },
                 loading: () => const CircularProgressIndicator(),

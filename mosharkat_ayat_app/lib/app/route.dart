@@ -9,6 +9,7 @@ class RouteClass {
   static const String sura = '/sura';
   static const String editor = '/editor';
   static const String backgoundAndSheikh = "/backgroundAndSheikh";
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case home:

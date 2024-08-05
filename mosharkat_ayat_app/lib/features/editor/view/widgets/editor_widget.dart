@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mosharkat_ayat_app/features/surasList/model/sheikh_model.dart';
 
 class Editor_Widget extends StatefulWidget {
   final String gifUrl;
@@ -21,7 +22,8 @@ class _Editor_WidgetState extends State<Editor_Widget> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   int _currentAudioIndex = 0;
   Duration duration = Duration(seconds: 36);
-
+  double _brightness = 1.0;
+  String _sheikhName = "ar.abdulbasitmurattal";
   void _onAudioComplete() {
     if (_currentAudioIndex < widget.audioUrls.length - 1) {
       // Move to the next audio file
@@ -68,15 +70,26 @@ class _Editor_WidgetState extends State<Editor_Widget> {
           SizedBox(
             //margin: EdgeInsets.only(left: 0.05.sw, right: 0.05.sw),
             width: 0.8.sw,
-            height: 0.8.sh,
+            height: 0.7.sh,
             child: Stack(
               children: [
                 //caching the image
                 //opacity: Opacity(0.5), or birhgtness: Brightness.dark
                 Container(
+                  width: 0.8.sw,
+                  height: 0.6.sh,
                   color: Colors.black,
-                  child: Image.asset(
-                    "assets/backgrounds/${widget.gifUrl}",
+                  child: ColorFiltered(
+                    colorFilter: ColorFilter.matrix([
+                      _brightness, 0, 0, 0, 0, // red channel
+                      0, _brightness, 0, 0, 0, // green channel
+                      0, 0, _brightness, 0, 0, // blue channel
+                      0, 0, 0, 1, 0, // alpha channel
+                    ]),
+                    child: Image.asset(
+                      "assets/backgrounds/${widget.gifUrl}",
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -89,7 +102,6 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold)),
-                      //TODO : Center the text
                       SizedBox(
                         width: 1.sw,
                         height: 0.6.sh,
@@ -112,7 +124,43 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                 ),
               ],
             ),
-          )
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                const Text(
+                  "قم باختيار صوت الشيخ",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                DropdownButton(
+                    items: dropdownItems,
+                    value: _sheikhName,
+                    onChanged: (value) {
+                      setState(() {
+                        _sheikhName = value.toString();
+                      });
+                    }),
+                const Text(
+                  "سطوع الخلفية",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  width: 0.8.sw,
+                  child: Slider(
+                    min: 0.0,
+                    max: 2.0,
+                    value: _brightness,
+                    activeColor: const Color.fromARGB(255, 8, 90, 50),
+                    onChanged: (value) {
+                      setState(() {
+                        _brightness = value;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
