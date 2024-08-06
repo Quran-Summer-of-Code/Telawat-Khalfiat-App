@@ -40,7 +40,7 @@ class SuraScreen extends ConsumerWidget {
                     final ayah = ayahs[numberofsura];
                     return Ayahitem(
                         ayah: ayah[index].ayah,
-                        numberOfayah: index,
+                        numberOfayah: index + 1,
                         numberofsura:
                             numberofsura); // Your existing list item widget
                   },

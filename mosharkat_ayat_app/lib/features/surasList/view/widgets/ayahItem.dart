@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mosharkat_ayat_app/app/route.dart';
 
 class Ayahitem extends StatelessWidget {
   final String ayah;
@@ -25,14 +27,24 @@ class Ayahitem extends StatelessWidget {
         children: [
           Expanded(
             // Use Expanded to ensure the Text widget takes the available space and wraps text as needed
-            child: Text(
-              ayah,
-              textAlign: TextAlign.right,
-              style: const TextStyle(
-                fontSize: 16, // Adjust font size as needed
-                fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.popAndPushNamed(
+                    context, RouteClass.backgoundAndSheikh, arguments: {
+                  "numberOfSura": numberofsura,
+                  "start": numberOfayah,
+                  "end": numberOfayah
+                });
+              },
+              child: Text(
+                ayah,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  fontSize: 50.sp, // Adjust font size as needed
+                  fontWeight: FontWeight.bold,
+                ),
+                softWrap: true, // Enable text wrapping
               ),
-              softWrap: true, // Enable text wrapping
             ),
           ),
         ],

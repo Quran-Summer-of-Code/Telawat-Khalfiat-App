@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
@@ -26,6 +27,8 @@ class _ChoosingBackGroundAndSheikhScreenState
     extends State<ChoosingBackGroundAndSheikhScreen> {
   String _sheikhName = "ar.abdulbasitmurattal";
   int _backgroundIndex = 0;
+  bool _isAnimated = true;
+  Color _currentColor = Colors.white;
   @override
   Widget build(BuildContext context) {
     return SafeArea(child: Consumer(builder: (context, ref, child) {
@@ -63,40 +66,88 @@ class _ChoosingBackGroundAndSheikhScreenState
                         _sheikhName = value.toString();
                       });
                     }),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _isAnimated = true;
+                            });
+                          },
+                          child: Text(
+                            "خلفية متحركة",
+                            style: TextStyle(
+                                color: _isAnimated
+                                    ? const Color.fromARGB(255, 8, 90, 50)
+                                    : Colors.black,
+                                fontFamily: "Uthman",
+                                fontSize: 75.sp),
+                          )),
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _isAnimated = false;
+                            });
+                          },
+                          child: Text(
+                            "خلفية  ثابتة",
+                            style: TextStyle(
+                                color: !_isAnimated
+                                    ? const Color.fromARGB(255, 8, 90, 50)
+                                    : Colors.black,
+                                fontFamily: "Uthman",
+                                fontSize: 75.sp),
+                          )),
+                    ]),
                 Text(
                   "اختار خلفية",
                   style: TextStyle(fontFamily: "Uthman", fontSize: 75.sp),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                        onPressed: () {
+                _isAnimated
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _backgroundIndex--;
+                                  if (_backgroundIndex < 0) {
+                                    _backgroundIndex = backgrounds.length - 1;
+                                  }
+                                });
+                              },
+                              icon: const Icon(Icons.arrow_back)),
+                          SizedBox(
+                            width: 0.6.sw,
+                            height: 0.5.sh,
+                            child: Image.asset(
+                                "assets/backgrounds/${backgrounds[_backgroundIndex]}",
+                                fit: BoxFit.cover),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _backgroundIndex++;
+                                  if (_backgroundIndex >= backgrounds.length) {
+                                    _backgroundIndex = 0;
+                                  }
+                                });
+                              },
+                              icon: const Icon(Icons.arrow_forward)),
+                        ],
+                      )
+                    : ColorPicker(
+                        pickerColor: _currentColor,
+                        onColorChanged: (Color color) {
                           setState(() {
-                            _backgroundIndex--;
-                            if (_backgroundIndex < 0) {
-                              _backgroundIndex = backgrounds.length - 1;
-                            }
+                            _currentColor = color;
                           });
                         },
-                        icon: const Icon(Icons.arrow_back)),
-                    SizedBox(
-                      width: 0.6.sw,
-                      height: 0.6.sh,
-                      child: Image.asset(
-                          "assets/backgrounds/${backgrounds[_backgroundIndex]}"),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _backgroundIndex++;
-                            if (_backgroundIndex >= backgrounds.length) {
-                              _backgroundIndex = 0;
-                            }
-                          });
-                        },
-                        icon: const Icon(Icons.arrow_forward)),
-                  ],
+                        pickerAreaHeightPercent: 0.8,
+                      ),
+                const SizedBox(
+                  height: 20,
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -108,7 +159,9 @@ class _ChoosingBackGroundAndSheikhScreenState
                             "start": widget.start,
                             "end": widget.end,
                             "sheikhName": _sheikhName,
-                            "background": backgrounds[_backgroundIndex]
+                            "background": backgrounds[_backgroundIndex],
+                            "isAnimated": _isAnimated,
+                            "color": _currentColor
                           });
                     },
                     child: Text(

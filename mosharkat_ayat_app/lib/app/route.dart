@@ -41,6 +41,8 @@ class RouteClass {
                   end: data["end"],
                   sheikh: data["sheikhName"],
                   background: data["background"],
+                  isAnimated: data["isAnimated"],
+                  backgourndColor: data["color"],
                 ));
     }
   }
