@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
+import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
 
 class Ayahitem extends StatelessWidget {
   final String ayah;
@@ -29,12 +30,16 @@ class Ayahitem extends StatelessWidget {
             // Use Expanded to ensure the Text widget takes the available space and wraps text as needed
             child: GestureDetector(
               onTap: () {
-                Navigator.popAndPushNamed(
-                    context, RouteClass.backgoundAndSheikh, arguments: {
-                  "numberOfSura": numberofsura,
-                  "start": numberOfayah,
-                  "end": numberOfayah
-                });
+                Navigator.popAndPushNamed(context, RouteClass.editor,
+                    arguments: {
+                      "numberOfSura": numberofsura,
+                      "start": numberOfayah,
+                      "end": numberOfayah,
+                      "sheikhName": "ar.abdulbasitmurattal",
+                      "background": backgrounds[0],
+                      "isAnimated": true,
+                      "color": Colors.white
+                    });
               },
               child: Text(
                 ayah,

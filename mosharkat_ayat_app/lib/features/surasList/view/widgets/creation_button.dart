@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
+import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
 
 class CreationButton extends StatefulWidget {
   //limit the number of ayahs to the number of ayahs in the sura
@@ -78,11 +79,15 @@ class _CreationButtonState extends State<CreationButton> {
                       TextButton(
                           onPressed: () {
                             Navigator.popAndPushNamed(
-                                context, RouteClass.backgoundAndSheikh,
+                                context, RouteClass.editor,
                                 arguments: {
                                   "numberOfSura": widget.numberofsura,
                                   "start": _formValue,
-                                  "end": _toValue
+                                  "end": _toValue,
+                                  "sheikhName": "ar.abdulbasitmurattal",
+                                  "background": backgrounds[0],
+                                  "isAnimated": true,
+                                  "color": Colors.white
                                 });
                           },
                           child: const Text("حسناً"))
