@@ -2,23 +2,29 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
+import 'package:mosharkat_ayat_app/features/editor/model/audioBitrate.dart';
 import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/sheikh_model.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class Editor_Widget extends StatefulWidget {
   String gifUrl;
-  final List<String> audioUrls;
+  List<String> audioUrls;
   final List<String> ayah;
   bool isAnimated;
   Color backgourndColor;
+  final int start, end, numberOfSura, indexOfAyah;
   Editor_Widget(
       {super.key,
       required this.gifUrl,
       required this.audioUrls,
       required this.ayah,
       required this.isAnimated,
-      required this.backgourndColor});
+      required this.backgourndColor,
+      required this.start,
+      required this.end,
+      required this.numberOfSura,
+      required this.indexOfAyah});
 
   @override
   State<Editor_Widget> createState() => _Editor_WidgetState();
@@ -346,7 +352,17 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                           items: dropdownItems,
                           value: _sheikhName,
                           onChanged: (value) {
+                            int? _bitRate = bitRate[value.toString()];
+                            widget.audioUrls.clear();
+                            for (int i = widget.start - 1;
+                                i < widget.end;
+                                i++) {
+                              widget.audioUrls.add(
+                                  "https://cdn.islamic.network/quran/audio/${_bitRate}/${value.toString()}/${widget.indexOfAyah + i + 2}.mp3");
+                            }
+                            _playAudio(0);
                             setState(() {
+                              _currentAudioIndex = 0;
                               _sheikhName = value.toString();
                             });
                           })

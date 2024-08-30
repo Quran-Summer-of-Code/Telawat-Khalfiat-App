@@ -284,6 +284,42 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "permission_handler",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler-11.3.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "permission_handler_android",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler_android-12.0.12",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "permission_handler_apple",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler_apple-9.4.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "permission_handler_html",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler_html-0.1.3+2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "permission_handler_platform_interface",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler_platform_interface-4.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "permission_handler_windows",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/permission_handler_windows-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "platform",
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/platform-3.1.5",
       "packageUri": "lib/",
@@ -321,7 +357,7 @@
     },
     {
       "name": "shared_preferences_android",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.3.1",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/shared_preferences_android-2.3.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -458,7 +494,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-19T20:29:03.035770Z",
+  "generated": "2024-08-30T07:18:55.234798Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///A:/Flutter/Setups/SDK/flutter",

@@ -30,6 +30,7 @@ class _Editor_ScreenState extends State<Editor_Screen> {
   Widget build(BuildContext context) {
     List<String> ayah = [];
     List<String> audio = [];
+    int indexOfAyah = 0;
     return SafeArea(child: Consumer(builder: (context, ref, child) {
       final suraName = ref.watch(suraListProvider);
       final ayatAyncValue = ref.watch(ayatProvider);
@@ -42,6 +43,7 @@ class _Editor_ScreenState extends State<Editor_Screen> {
               ayatAyncValue.when(
                 data: (List<List<Ayah>> ayahs) {
                   int? _bitRate = bitRate[widget.sheikh];
+                  indexOfAyah = suras[widget.numberOfSura].firstAyah;
                   for (int i = widget.start - 1; i < widget.end; i++) {
                     ayah.add(ayahs[widget.numberOfSura][i].ayah);
                     audio.add(
@@ -69,6 +71,10 @@ class _Editor_ScreenState extends State<Editor_Screen> {
           ayah: ayah,
           isAnimated: widget.isAnimated,
           backgourndColor: widget.backgourndColor,
+          start: widget.start,
+          end: widget.end,
+          numberOfSura: widget.numberOfSura,
+          indexOfAyah: indexOfAyah,
         ),
         // bottomNavigationBar: BottomNavigationBar(
         //   items: [
