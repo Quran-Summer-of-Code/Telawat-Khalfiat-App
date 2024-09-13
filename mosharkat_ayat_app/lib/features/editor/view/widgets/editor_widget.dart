@@ -235,14 +235,33 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(widget.ayah[_currentAudioIndex],
+                            Container(
+                              width: 0.8.sw,
+                              margin: const EdgeInsets.all(8.0), // Add margin
+                              child: Text(
+                                widget.ayah[_currentAudioIndex],
                                 textAlign: TextAlign.center,
+                                //textDirection: TextDirection.rtl,
                                 style: TextStyle(
-                                    color: _currentColor,
-                                    fontFamily: "Newmet",
-                                    fontSize: _fontSize,
-                                    height: 2,
-                                    fontWeight: FontWeight.bold)),
+                                  color: _currentColor,
+                                  fontFamily: "Newmet",
+                                  fontSize: widget
+                                              .ayah[_currentAudioIndex].length >
+                                          550
+                                      ? 12.5
+                                      : widget.ayah[_currentAudioIndex].length >
+                                              250
+                                          ? 18
+                                          : _fontSize,
+                                  height: 2.5, // Adjust line spacing
+                                  fontWeight:
+                                      widget.ayah[_currentAudioIndex].length >
+                                              550
+                                          ? FontWeight.normal
+                                          : FontWeight.bold,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -421,27 +440,63 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                           TextButton(
-                                              onPressed: () {
-                                                _showBottomSheet(true);
-                                              },
-                                              child: Text(
-                                                "خلفية متحركة",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: "Uthman",
-                                                    fontSize: 75.sp),
-                                              )),
+                                            onPressed: () {
+                                              _showBottomSheet(true);
+                                            },
+                                            style: TextButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12.0,
+                                                      horizontal: 24.0),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 8, 90, 50),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              shadowColor:
+                                                  Colors.black.withOpacity(0.2),
+                                              elevation: 5,
+                                            ),
+                                            child: Text(
+                                              "خلفية متحركة",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "Uthman",
+                                                fontSize: 65.sp,
+                                              ),
+                                            ),
+                                          ),
                                           TextButton(
-                                              onPressed: () {
-                                                _showBottomSheet(false);
-                                              },
-                                              child: Text(
-                                                "خلفية  ثابتة",
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: "Uthman",
-                                                    fontSize: 75.sp),
-                                              )),
+                                            onPressed: () {
+                                              _showBottomSheet(false);
+                                            },
+                                            style: TextButton.styleFrom(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12.0,
+                                                      horizontal: 24.0),
+                                              backgroundColor:
+                                                  const Color.fromARGB(
+                                                      255, 8, 90, 50),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              shadowColor:
+                                                  Colors.black.withOpacity(0.2),
+                                              elevation: 5,
+                                            ),
+                                            child: Text(
+                                              "خلفية ثابتة",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: "Uthman",
+                                                fontSize: 70.sp,
+                                              ),
+                                            ),
+                                          ),
                                         ])
                                   : const SizedBox()),
           SingleChildScrollView(
@@ -452,10 +507,11 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      if (_option == 0)
+                      if (_option == 0) {
                         _option = -1;
-                      else
+                      } else {
                         _option = 0;
+                      }
                     });
                   },
                   icon: const Column(

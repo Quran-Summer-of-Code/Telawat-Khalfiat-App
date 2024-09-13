@@ -31,7 +31,7 @@ class SurasListScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final sura = suras[index];
 
-              return Suraslistitem(
+              return SurasListItem(
                   sura: sura, index: index); // Your existing list item widget
             },
           ),

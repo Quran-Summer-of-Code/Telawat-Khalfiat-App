@@ -54,12 +54,11 @@ class RouteClass {
       //           ));
 
       case sura:
-        int index = settings.arguments as int;
+        Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
 
         return MaterialPageRoute(
             builder: (_) => SuraScreen(
-                  numberofsura: index,
-                ));
+                numberofsura: data["index"], suraName: data["suraName"]));
       default:
         Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
         // String background = settings.arguments as String;

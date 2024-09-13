@@ -15,7 +15,7 @@
     },
     {
       "name": "audioplayers",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/audioplayers-6.0.0",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/audioplayers-6.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
@@ -45,7 +45,7 @@
     },
     {
       "name": "audioplayers_web",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/audioplayers_web-5.0.0",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/audioplayers_web-5.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.3"
     },
@@ -102,6 +102,18 @@
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/ffi-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "ffmpeg_kit_flutter",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/ffmpeg_kit_flutter-6.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "ffmpeg_kit_flutter_platform_interface",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/ffmpeg_kit_flutter_platform_interface-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "file",
@@ -182,16 +194,28 @@
       "languageVersion": "3.2"
     },
     {
-      "name": "http",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/http-1.2.2",
+      "name": "gallery_saver",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/gallery_saver-2.3.2",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "http",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/http-0.13.6",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "http_parser",
       "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "internal_audio_recorder",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/internal_audio_recorder-0.1.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
     },
     {
       "name": "js",
@@ -477,9 +501,9 @@
     },
     {
       "name": "web",
-      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/web-0.5.1",
+      "rootUri": "file:///C:/Users/Ahmed/AppData/Local/Pub/Cache/hosted/pub.dev/web-1.0.0",
       "packageUri": "lib/",
-      "languageVersion": "3.3"
+      "languageVersion": "3.4"
     },
     {
       "name": "xdg_directories",
@@ -494,7 +518,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-08-30T07:18:55.234798Z",
+  "generated": "2024-09-12T16:56:51.306561Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///A:/Flutter/Setups/SDK/flutter",

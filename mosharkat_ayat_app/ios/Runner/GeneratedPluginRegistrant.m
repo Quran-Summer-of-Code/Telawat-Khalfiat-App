@@ -12,6 +12,12 @@
 @import audioplayers_darwin;
 #endif
 
+#if __has_include(<ffmpeg_kit_flutter/FFmpegKitFlutterPlugin.h>)
+#import <ffmpeg_kit_flutter/FFmpegKitFlutterPlugin.h>
+#else
+@import ffmpeg_kit_flutter;
+#endif
+
 #if __has_include(<flutter_foreground_task/FlutterForegroundTaskPlugin.h>)
 #import <flutter_foreground_task/FlutterForegroundTaskPlugin.h>
 #else
@@ -22,6 +28,12 @@
 #import <flutter_screen_recording/FlutterScreenRecordingPlugin.h>
 #else
 @import flutter_screen_recording;
+#endif
+
+#if __has_include(<gallery_saver/GallerySaverPlugin.h>)
+#import <gallery_saver/GallerySaverPlugin.h>
+#else
+@import gallery_saver;
 #endif
 
 #if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
@@ -46,8 +58,10 @@
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
   [AudioplayersDarwinPlugin registerWithRegistrar:[registry registrarForPlugin:@"AudioplayersDarwinPlugin"]];
+  [FFmpegKitFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FFmpegKitFlutterPlugin"]];
   [FlutterForegroundTaskPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterForegroundTaskPlugin"]];
   [FlutterScreenRecordingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterScreenRecordingPlugin"]];
+  [GallerySaverPlugin registerWithRegistrar:[registry registrarForPlugin:@"GallerySaverPlugin"]];
   [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];

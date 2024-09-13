@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screen_recording/flutter_screen_recording.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 
 class RecordingScreen extends StatefulWidget {
   String gifUrl;
@@ -44,15 +48,17 @@ class _RecordingScreenState extends State<RecordingScreen> {
     } else {
       Future<String> temp = FlutterScreenRecording.stopRecordScreen;
       temp.then((value) {
-        print("WWWWWWWWWWWWWWWWWWWWWWWWWW");
-        print(value);
+        transferVideoToGallery(value);
       });
+
       Navigator.pop(context);
     }
   }
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
     super.initState();
 
     _playAudio(_currentAudioIndex);
@@ -60,12 +66,26 @@ class _RecordingScreenState extends State<RecordingScreen> {
       _onAudioComplete();
     });
 
+    init2();
+  }
+
+  void init2() async {
     FlutterScreenRecording.startRecordScreenAndAudio("test");
   }
 
   void _playAudio(int index) async {
     if (index < widget.audioUrls.length) {
       await _audioPlayer.play(UrlSource(widget.audioUrls[index]));
+    }
+  }
+
+  Future<void> transferVideoToGallery(String path) async {
+    // Get the path to the video in the cache folder
+
+    // Check if the file exists
+    if (await File(path).exists()) {
+      // Save the video to the gallery
+      await GallerySaver.saveVideo(path);
     }
   }
 
@@ -118,13 +138,32 @@ class _RecordingScreenState extends State<RecordingScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(widget.ayah[_currentAudioIndex],
+                          Container(
+                            width: 0.8.sw,
+                            margin: const EdgeInsets.all(8.0), // Add margin
+                            child: Text(
+                              widget.ayah[_currentAudioIndex],
                               textAlign: TextAlign.center,
+                              //textDirection: TextDirection.rtl,
                               style: TextStyle(
-                                  color: widget.currentColor,
-                                  fontFamily: "Newmet",
-                                  fontSize: widget.fontSize,
-                                  fontWeight: FontWeight.bold)),
+                                color: widget.currentColor,
+                                fontFamily: "Newmet",
+                                fontSize:
+                                    widget.ayah[_currentAudioIndex].length > 550
+                                        ? 16
+                                        : widget.ayah[_currentAudioIndex]
+                                                    .length >
+                                                250
+                                            ? 18
+                                            : widget.fontSize,
+                                height: 2.5, // Adjust line spacing
+                                fontWeight:
+                                    widget.ayah[_currentAudioIndex].length > 550
+                                        ? FontWeight.normal
+                                        : FontWeight.w400,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     )

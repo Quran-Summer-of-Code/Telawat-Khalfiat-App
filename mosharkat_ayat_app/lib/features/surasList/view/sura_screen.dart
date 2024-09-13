@@ -7,7 +7,9 @@ import 'package:mosharkat_ayat_app/features/surasList/view_model/suras_provider.
 
 class SuraScreen extends ConsumerWidget {
   final int numberofsura;
-  const SuraScreen({super.key, required this.numberofsura});
+  final String suraName;
+  const SuraScreen(
+      {super.key, required this.numberofsura, required this.suraName});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,10 +25,10 @@ class SuraScreen extends ConsumerWidget {
         ),
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 8, 90, 50),
-          title: const Center(
+          title: Center(
             child: Text(
-              'سور القرآن الكريم',
-              style: TextStyle(
+              suraName,
+              style: const TextStyle(
                 color: Colors.white,
                 fontFamily: "Uthman",
               ),
@@ -38,11 +40,32 @@ class SuraScreen extends ConsumerWidget {
                   itemCount: ayahs[numberofsura].length,
                   itemBuilder: (context, index) {
                     final ayah = ayahs[numberofsura];
-                    return Ayahitem(
-                        ayah: ayah[index].ayah,
-                        numberOfayah: index + 1,
-                        numberofsura:
-                            numberofsura); // Your existing list item widget
+                    return Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.center, // Center the text
+
+                          decoration: BoxDecoration(
+                            color: Colors.green
+                                .shade100, // Set background color to black
+                            // Add rounded corners
+                          ),
+                          child: Text(
+                            '${index + 1}',
+                            style: TextStyle(
+                              color: Colors
+                                  .green.shade700, // Set text color to white
+                              fontSize: 20.0, // Set font size
+                              fontWeight: FontWeight.bold, // Make text bold
+                            ),
+                          ),
+                        ),
+                        Ayahitem(
+                            ayah: ayah[index].ayah,
+                            numberOfayah: index + 1,
+                            numberofsura: numberofsura),
+                      ],
+                    ); // Your existing list item widget
                   },
                 ),
             error: (error, stack) => Text('Error: $error'),

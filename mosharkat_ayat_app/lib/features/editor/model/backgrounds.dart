@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 List<String> backgrounds = [
-  "fire1.gif",
   "rain1.gif",
   "sky1.gif",
   "snow1.gif",

@@ -29,28 +29,48 @@ class Ayahitem extends StatelessWidget {
           Expanded(
             // Use Expanded to ensure the Text widget takes the available space and wraps text as needed
             child: GestureDetector(
-              onTap: () {
-                Navigator.popAndPushNamed(context, RouteClass.editor,
-                    arguments: {
-                      "numberOfSura": numberofsura,
-                      "start": numberOfayah,
-                      "end": numberOfayah,
-                      "sheikhName": "ar.abdulbasitmurattal",
-                      "background": backgrounds[0],
-                      "isAnimated": true,
-                      "color": Colors.white
-                    });
-              },
-              child: Text(
-                ayah,
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontSize: 50.sp, // Adjust font size as needed
-                  fontWeight: FontWeight.bold,
-                ),
-                softWrap: true, // Enable text wrapping
-              ),
-            ),
+                onTap: () {
+                  Navigator.popAndPushNamed(context, RouteClass.editor,
+                      arguments: {
+                        "numberOfSura": numberofsura,
+                        "start": numberOfayah,
+                        "end": numberOfayah,
+                        "sheikhName": "ar.abdulbasitmurattal",
+                        "background": backgrounds[0],
+                        "isAnimated": true,
+                        "color": Colors.white
+                      });
+                },
+                child: Container(
+                  margin:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
+                  padding: EdgeInsets.all(16.w),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.circular(15.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  child: Text(
+                    ayah,
+                    textAlign: TextAlign.right,
+                    textDirection: TextDirection.rtl,
+                    style: TextStyle(
+                      fontSize: 50.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily:
+                          'Uthman', // Make sure to use an appropriate Quranic font
+                      height:
+                          2.0, // Increased line height for better readability
+                      color: Colors.black87,
+                    ),
+                  ),
+                )),
           ),
         ],
       ),
