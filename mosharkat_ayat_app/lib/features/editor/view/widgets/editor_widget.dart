@@ -7,6 +7,7 @@ import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/sheikh_model.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+// ignore: must_be_immutable
 class Editor_Widget extends StatefulWidget {
   String gifUrl;
   List<String> audioUrls;
@@ -357,7 +358,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
           SizedBox(
             width: 0.60.sw,
             child: const Divider(
-              color: const Color.fromARGB(255, 8, 90, 50),
+              color: Color.fromARGB(255, 8, 90, 50),
               thickness: 1,
             ),
           ),

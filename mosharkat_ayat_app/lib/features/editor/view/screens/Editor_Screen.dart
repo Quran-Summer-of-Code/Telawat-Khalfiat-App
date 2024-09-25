@@ -42,12 +42,12 @@ class _Editor_ScreenState extends State<Editor_Screen> {
             data: (List<Sura> suras) {
               ayatAyncValue.when(
                 data: (List<List<Ayah>> ayahs) {
-                  int? _bitRate = bitRate[widget.sheikh];
+                  int? bitRatetemp = bitRate[widget.sheikh];
                   indexOfAyah = suras[widget.numberOfSura].firstAyah;
                   for (int i = widget.start - 1; i < widget.end; i++) {
                     ayah.add(ayahs[widget.numberOfSura][i].ayah);
                     audio.add(
-                        "https://cdn.islamic.network/quran/audio/${_bitRate}/${widget.sheikh}/${suras[widget.numberOfSura].firstAyah + i + 2}.mp3");
+                        "https://cdn.islamic.network/quran/audio/$bitRatetemp/${widget.sheikh}/${suras[widget.numberOfSura].firstAyah + i + 2}.mp3");
                   }
                 },
                 loading: () => const CircularProgressIndicator(),
