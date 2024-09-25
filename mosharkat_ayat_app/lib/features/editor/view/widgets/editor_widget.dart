@@ -348,7 +348,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                           });
                     },
                     icon: Icon(
-                      Icons.download,
+                      Icons.screen_lock_landscape,
                       color: Colors.white,
                       size: 20.spMax,
                     )),

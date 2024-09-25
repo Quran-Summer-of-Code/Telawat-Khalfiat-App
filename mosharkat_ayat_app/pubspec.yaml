@@ -40,12 +40,12 @@ dependencies:
   animated_text_kit: ^4.2.2
   flutter_riverpod: ^2.5.1
   flutter_colorpicker: ^1.1.0
-  flutter_screen_recording: ^2.0.14
-  permission_handler: ^11.3.1
-  ffmpeg_kit_flutter: ^6.0.3
-  internal_audio_recorder: ^0.1.6
-  path_provider: ^2.1.4
-  gallery_saver: ^2.3.2
+  
+
+ 
+  
+  
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,11 +1,8 @@
-import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screen_recording/flutter_screen_recording.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/services.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 
 class RecordingScreen extends StatefulWidget {
   String gifUrl;
@@ -45,11 +42,6 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
       _playAudio(_currentAudioIndex);
     } else {
-      Future<String> temp = FlutterScreenRecording.stopRecordScreen;
-      temp.then((value) {
-        transferVideoToGallery(value);
-      });
-
       Navigator.pop(context);
     }
   }
@@ -64,27 +56,11 @@ class _RecordingScreenState extends State<RecordingScreen> {
     _audioPlayer.onPlayerComplete.listen((event) {
       _onAudioComplete();
     });
-
-    init2();
-  }
-
-  void init2() async {
-    FlutterScreenRecording.startRecordScreenAndAudio("test");
   }
 
   void _playAudio(int index) async {
     if (index < widget.audioUrls.length) {
       await _audioPlayer.play(UrlSource(widget.audioUrls[index]));
-    }
-  }
-
-  Future<void> transferVideoToGallery(String path) async {
-    // Get the path to the video in the cache folder
-
-    // Check if the file exists
-    if (await File(path).exists()) {
-      // Save the video to the gallery
-      await GallerySaver.saveVideo(path);
     }
   }
 
