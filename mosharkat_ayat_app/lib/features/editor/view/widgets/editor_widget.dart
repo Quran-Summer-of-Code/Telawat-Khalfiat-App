@@ -38,7 +38,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
   String _sheikhName = "ar.abdulbasitmurattal";
   int _option = 0;
   double _down = 0, _up = 0, _fontSize = 24;
-  bool _isPlaying = true;
+  bool _isPlaying = false;
   Color _currentColor = Colors.white;
   void _onAudioComplete() {
     if (_currentAudioIndex < widget.audioUrls.length - 1) {
@@ -66,7 +66,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
   }
 
   void _playAudio(int index) async {
-    if (index < widget.audioUrls.length) {
+    if (index < widget.audioUrls.length && _isPlaying) {
       await _audioPlayer.play(UrlSource(widget.audioUrls[index]));
     }
   }
@@ -223,15 +223,18 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("2",
-                          style: TextStyle(
-                            color: _currentColor,
-                            fontFamily: "KaalaTaala",
-                            fontSize: 32.spMax,
-                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text("2",
+                            style: TextStyle(
+                              color: _currentColor,
+                              fontFamily: "KaalaTaala",
+                              fontSize: 32.spMax,
+                            )),
+                      ),
                       SizedBox(
                         width: 1.sw,
-                        height: 0.5.sh + (-_down + _up),
+                        height: 0.5.sh + (_down - _up),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -276,7 +279,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(137, 0, 0, 0),
+                  color: const Color.fromARGB(181, 8, 90, 50),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: IconButton(
@@ -286,8 +289,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                           _audioPlayer.pause();
                           _isPlaying = false;
                         } else {
-                          _audioPlayer.resume();
                           _isPlaying = true;
+                          _playAudio(_currentAudioIndex);
+                          _audioPlayer.resume();
                         }
                       });
                     },
@@ -305,7 +309,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(137, 0, 0, 0),
+                  color: const Color.fromARGB(181, 8, 90, 50),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: IconButton(
@@ -323,7 +327,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(137, 0, 0, 0),
+                  color: const Color.fromARGB(181, 8, 90, 50),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: IconButton(
@@ -350,6 +354,13 @@ class _Editor_WidgetState extends State<Editor_Widget> {
               )
             ],
           ),
+          SizedBox(
+            width: 0.60.sw,
+            child: const Divider(
+              color: const Color.fromARGB(255, 8, 90, 50),
+              thickness: 1,
+            ),
+          ),
           Container(
               child: _option == 0
                   ? SizedBox(
@@ -371,13 +382,13 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                           items: dropdownItems,
                           value: _sheikhName,
                           onChanged: (value) {
-                            int? _bitRate = bitRate[value.toString()];
+                            int? bitRateTemp = bitRate[value.toString()];
                             widget.audioUrls.clear();
                             for (int i = widget.start - 1;
                                 i < widget.end;
                                 i++) {
                               widget.audioUrls.add(
-                                  "https://cdn.islamic.network/quran/audio/${_bitRate}/${value.toString()}/${widget.indexOfAyah + i + 2}.mp3");
+                                  "https://cdn.islamic.network/quran/audio/$bitRateTemp/${value.toString()}/${widget.indexOfAyah + i + 2}.mp3");
                             }
                             _playAudio(0);
                             setState(() {

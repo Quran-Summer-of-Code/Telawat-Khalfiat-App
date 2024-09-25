@@ -16,6 +16,7 @@ List<DropdownMenuItem<String>> get dropdownItems {
         value: "ar.minshawi", child: Text("محمد صديق المنشاوي")),
     const DropdownMenuItem(
         value: "ar.mahermuaiqly", child: Text("ماهر المعيقلي")),
+    const DropdownMenuItem(value: "ar.alafasy", child: Text("مشاري العفاسي")),
   ];
   return menuItems;
 }

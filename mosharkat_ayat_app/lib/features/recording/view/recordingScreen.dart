@@ -126,12 +126,15 @@ class _RecordingScreenState extends State<RecordingScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text("2",
-                        style: TextStyle(
-                          color: widget.currentColor,
-                          fontFamily: "KaalaTaala",
-                          fontSize: 32.spMax,
-                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Text("2",
+                          style: TextStyle(
+                            color: widget.currentColor,
+                            fontFamily: "KaalaTaala",
+                            fontSize: 32.spMax,
+                          )),
+                    ),
                     SizedBox(
                       width: 1.sw,
                       height: 0.8.sh + (-widget.down + widget.up),
