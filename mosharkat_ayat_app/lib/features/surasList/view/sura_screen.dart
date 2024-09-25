@@ -42,24 +42,6 @@ class SuraScreen extends ConsumerWidget {
                     final ayah = ayahs[numberofsura];
                     return Column(
                       children: [
-                        Container(
-                          alignment: Alignment.center, // Center the text
-
-                          decoration: BoxDecoration(
-                            color: Colors.green
-                                .shade100, // Set background color to black
-                            // Add rounded corners
-                          ),
-                          child: Text(
-                            '${index + 1}',
-                            style: TextStyle(
-                              color: Colors
-                                  .green.shade700, // Set text color to white
-                              fontSize: 20.0, // Set font size
-                              fontWeight: FontWeight.bold, // Make text bold
-                            ),
-                          ),
-                        ),
                         Ayahitem(
                             ayah: ayah[index].ayah,
                             numberOfayah: index + 1,

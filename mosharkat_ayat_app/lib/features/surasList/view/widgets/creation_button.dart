@@ -20,7 +20,6 @@ class _CreationButtonState extends State<CreationButton> {
 
   @override
   Widget build(BuildContext context) {
-    print("number of ayahs: ${widget.numberofsura}");
     return Container(
       decoration: const BoxDecoration(
           color: Color.fromARGB(255, 4, 129, 77), shape: BoxShape.circle),
@@ -79,18 +78,26 @@ class _CreationButtonState extends State<CreationButton> {
                       TextButton(
                           onPressed: () {
                             Navigator.popAndPushNamed(
-                                context, RouteClass.editor,
-                                arguments: {
-                                  "numberOfSura": widget.numberofsura,
-                                  "start": _formValue,
-                                  "end": _toValue,
-                                  "sheikhName": "ar.abdulbasitmurattal",
-                                  "background": backgrounds[6],
-                                  "isAnimated": true,
-                                  "color": Colors.white
-                                });
+                              context,
+                              RouteClass.editor,
+                              arguments: {
+                                "numberOfSura": widget.numberofsura,
+                                "start": _formValue,
+                                "end": _toValue,
+                                "sheikhName": "ar.abdulbasitmurattal",
+                                "background": backgrounds[6],
+                                "isAnimated": true,
+                                "color": Colors.white
+                              },
+                            );
                           },
-                          child: const Text("حسناً"))
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          child: const Text(
+                            "تم",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ],
                   );
                 });

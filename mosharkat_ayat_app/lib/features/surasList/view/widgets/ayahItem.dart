@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
 import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
+import 'package:mosharkat_ayat_app/features/surasList/view_model/convert_number_to_arabic.dart';
 
 class Ayahitem extends StatelessWidget {
   final String ayah;
@@ -42,8 +43,7 @@ class Ayahitem extends StatelessWidget {
                       });
                 },
                 child: Container(
-                  margin:
-                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
+                  margin: EdgeInsets.symmetric(horizontal: 16.w),
                   padding: EdgeInsets.all(16.w),
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
@@ -52,17 +52,17 @@ class Ayahitem extends StatelessWidget {
                       BoxShadow(
                         color: Colors.black.withOpacity(0.05),
                         blurRadius: 10,
-                        offset: Offset(0, 3),
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
                   child: Text(
-                    ayah,
+                    "$ayah  \ufd3f${convertToArabicNumbers(numberOfayah.toString())}\ufd3e",
                     textAlign: TextAlign.right,
                     textDirection: TextDirection.rtl,
                     style: TextStyle(
                       fontSize: 50.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       fontFamily:
                           'Uthman', // Make sure to use an appropriate Quranic font
                       height:

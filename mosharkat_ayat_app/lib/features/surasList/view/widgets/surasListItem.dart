@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/sura_model.dart';
+import 'package:mosharkat_ayat_app/features/surasList/view_model/convert_number_to_arabic.dart';
 
 class SurasListItem extends StatelessWidget {
   final Sura sura;
@@ -25,12 +26,27 @@ class SurasListItem extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Icon
-                Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.grey.shade400,
-                  size: 18,
+                Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade100,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      convertToArabicNumbers(sura.order),
+                      style: TextStyle(
+                        fontFamily: 'Uthman',
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green.shade700,
+                      ),
+                    ),
+                  ),
                 ),
+                // Icon
+
                 const SizedBox(width: 16),
                 // Sura Details
                 Column(
@@ -46,9 +62,11 @@ class SurasListItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      "عدد الآيات ${sura.numAyas}",
+                      "عدد الآيات ${convertToArabicNumbers(sura.numAyas.toString())}",
                       style: TextStyle(
-                        fontSize: 14,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Uthman',
                         color: Colors.grey.shade600,
                       ),
                     ),
@@ -56,24 +74,10 @@ class SurasListItem extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 // Sura Order
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade100,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Text(
-                      sura.order,
-                      style: TextStyle(
-                        fontFamily: 'Uthman',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green.shade700,
-                      ),
-                    ),
-                  ),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.grey.shade400,
+                  size: 18,
                 ),
               ],
             ),
