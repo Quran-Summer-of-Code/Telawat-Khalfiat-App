@@ -17,6 +17,12 @@ class CreationButton extends StatefulWidget {
 class _CreationButtonState extends State<CreationButton> {
   int _formValue = 1;
   int _toValue = 1;
+  final TextEditingController _tocontroller = TextEditingController();
+  @override
+  void dispose() {
+    _tocontroller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +51,7 @@ class _CreationButtonState extends State<CreationButton> {
                                   width: 50.w,
                                   height: 150.h,
                                   child: TextField(
+                                    controller: _tocontroller,
                                     onChanged: (value) {
                                       setState(() {
                                         _toValue = int.parse(value);
@@ -64,6 +71,8 @@ class _CreationButtonState extends State<CreationButton> {
                                     onChanged: (value) {
                                       setState(() {
                                         _formValue = int.parse(value);
+                                        _toValue = int.parse(value);
+                                        _tocontroller.text = value;
                                       });
                                     },
                                   ),
@@ -77,6 +86,16 @@ class _CreationButtonState extends State<CreationButton> {
                     actions: [
                       TextButton(
                           onPressed: () {
+                            if (_formValue <= 0 ||
+                                _formValue > widget.numberOfAyahs) {
+                              _formValue = 1;
+                            }
+                            if (_toValue <= 0) {
+                              _toValue = 1;
+                            }
+                            if (_toValue > widget.numberOfAyahs) {
+                              _toValue = widget.numberOfAyahs;
+                            }
                             Navigator.popAndPushNamed(
                               context,
                               RouteClass.editor,

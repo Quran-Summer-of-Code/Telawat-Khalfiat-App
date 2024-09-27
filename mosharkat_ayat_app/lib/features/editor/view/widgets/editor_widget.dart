@@ -52,8 +52,8 @@ class _Editor_WidgetState extends State<Editor_Widget> {
     } else {
       setState(() {
         _currentAudioIndex = 0;
+        _isPlaying = false;
       });
-      _playAudio(_currentAudioIndex);
     }
   }
 
@@ -224,15 +224,17 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text("2",
-                            style: TextStyle(
-                              color: _currentColor,
-                              fontFamily: "KaalaTaala",
-                              fontSize: 32.spMax,
-                            )),
-                      ),
+                      widget.numberOfSura != 8
+                          ? Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Text("2",
+                                  style: TextStyle(
+                                    color: _currentColor,
+                                    fontFamily: "KaalaTaala",
+                                    fontSize: 32.spMax,
+                                  )),
+                            )
+                          : const SizedBox(),
                       SizedBox(
                         width: 1.sw,
                         height: 0.5.sh + (_down - _up),
