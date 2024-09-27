@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:mosharkat_ayat_app/features/surasList/model/ayah_model.dart';
 import 'package:mosharkat_ayat_app/features/surasList/view/widgets/ayahItem.dart';
 import 'package:mosharkat_ayat_app/features/surasList/view/widgets/creation_button.dart';
@@ -27,7 +28,7 @@ class SuraScreen extends ConsumerWidget {
           backgroundColor: const Color.fromARGB(255, 8, 90, 50),
           title: Center(
             child: Text(
-              suraName,
+              "سورة $suraName",
               style: const TextStyle(
                 color: Colors.white,
                 fontFamily: "Uthman",
@@ -40,14 +41,25 @@ class SuraScreen extends ConsumerWidget {
                   itemCount: ayahs[numberofsura].length,
                   itemBuilder: (context, index) {
                     final ayah = ayahs[numberofsura];
-                    return Column(
-                      children: [
-                        Ayahitem(
+                    return index == 0 && numberofsura != 8
+                        ? Column(
+                            children: [
+                              const Text("2",
+                                  style: TextStyle(
+                                      fontFamily: "KaalaTaala",
+                                      fontSize: 40,
+                                      color: Color.fromARGB(255, 8, 90, 50))),
+                              Ayahitem(
+                                  ayah: ayah[index].ayah,
+                                  numberOfayah: index + 1,
+                                  numberofsura: numberofsura),
+                            ],
+                          )
+                        : Ayahitem(
                             ayah: ayah[index].ayah,
                             numberOfayah: index + 1,
-                            numberofsura: numberofsura),
-                      ],
-                    ); // Your existing list item widget
+                            numberofsura:
+                                numberofsura); // Your existing list item widget
                   },
                 ),
             error: (error, stack) => Text('Error: $error'),

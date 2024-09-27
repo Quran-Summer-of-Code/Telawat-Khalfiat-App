@@ -17,63 +17,54 @@ class Ayahitem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Expanded(
-            // Use Expanded to ensure the Text widget takes the available space and wraps text as needed
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.popAndPushNamed(context, RouteClass.editor,
-                      arguments: {
-                        "numberOfSura": numberofsura,
-                        "start": numberOfayah,
-                        "end": numberOfayah,
-                        "sheikhName": "ar.abdulbasitmurattal",
-                        "background": backgrounds[6],
-                        "isAnimated": true,
-                        "color": Colors.white
-                      });
-                },
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 16.w),
-                  padding: EdgeInsets.all(16.w),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[50],
-                    borderRadius: BorderRadius.circular(15.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 3),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    "$ayah  \ufd3f${convertToArabicNumbers(numberOfayah.toString())}\ufd3e",
-                    textAlign: TextAlign.right,
-                    textDirection: TextDirection.rtl,
-                    style: TextStyle(
-                      fontSize: 50.sp,
-                      fontWeight: FontWeight.w600,
-                      fontFamily:
-                          'Uthman', // Make sure to use an appropriate Quranic font
-                      height:
-                          2.0, // Increased line height for better readability
-                      color: Colors.black87,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Expanded(
+          // Use Expanded to ensure the Text widget takes the available space and wraps text as needed
+          child: GestureDetector(
+              onTap: () {
+                Navigator.popAndPushNamed(context, RouteClass.editor,
+                    arguments: {
+                      "numberOfSura": numberofsura,
+                      "start": numberOfayah,
+                      "end": numberOfayah,
+                      "sheikhName": "ar.abdulbasitmurattal",
+                      "background": backgrounds[6],
+                      "isAnimated": true,
+                      "color": Colors.white
+                    });
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+                padding: EdgeInsets.all(16.w),
+                decoration: BoxDecoration(
+                  color: Colors.grey[50],
+                  borderRadius: BorderRadius.circular(15.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 50,
+                      offset: const Offset(0, 3),
                     ),
+                  ],
+                ),
+                child: Text(
+                  "$ayah  \ufd3f${convertToArabicNumbers(numberOfayah.toString())}\ufd3e",
+                  textAlign: TextAlign.right,
+                  textDirection: TextDirection.rtl,
+                  style: TextStyle(
+                    fontSize: 65.sp,
+                    fontWeight: FontWeight.w500,
+                    fontFamily:
+                        'Uthman', // Make sure to use an appropriate Quranic font
+                    height: 2.0, // Increased line height for better readability
+                    color: Colors.black87,
                   ),
-                )),
-          ),
-        ],
-      ),
+                ),
+              )),
+        ),
+      ],
     );
   }
 }
