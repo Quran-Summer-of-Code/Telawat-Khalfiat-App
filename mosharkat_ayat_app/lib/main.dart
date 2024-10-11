@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: RouteClass.home,
         onGenerateRoute: RouteClass.generateRoute,
-        title: 'Mosharkat Ayat App',
+        title: 'تلاوات_مع_خلفيات',
       ),
     );
   }
