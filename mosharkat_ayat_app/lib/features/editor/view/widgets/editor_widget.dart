@@ -264,7 +264,7 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                                       widget.ayah[_currentAudioIndex].length >
                                               550
                                           ? FontWeight.normal
-                                          : FontWeight.bold,
+                                          : FontWeight.w400,
                                 ),
                               ),
                             ),
@@ -406,7 +406,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                                 IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      _up += 10;
+                                      if (_up < 50) {
+                                        _up += 10;
+                                      }
                                     });
                                   },
                                   icon: const Icon(Icons.arrow_upward),
@@ -414,7 +416,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                                 IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      _down += 10;
+                                      if (_down < 50) {
+                                        _down += 10;
+                                      }
                                     });
                                   },
                                   icon: const Icon(Icons.arrow_downward),
@@ -429,7 +433,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                                     IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          _fontSize += 2;
+                                          if (_fontSize < 42) {
+                                            _fontSize += 2;
+                                          }
                                         });
                                       },
                                       icon: const Icon(Icons.add),
@@ -441,7 +447,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                                     IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          _fontSize -= 2;
+                                          if (_fontSize > 12) {
+                                            _fontSize -= 2;
+                                          }
                                         });
                                       },
                                       icon: const Icon(Icons.remove),

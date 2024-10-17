@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
 import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
@@ -51,6 +52,13 @@ class _CreationButtonState extends State<CreationButton> {
                                   width: 50.w,
                                   height: 150.h,
                                   child: TextField(
+                                    keyboardType:
+                                        TextInputType.number, // Only numbers
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter
+                                          .digitsOnly, // Only digits
+                                      LengthLimitingTextInputFormatter(3),
+                                    ],
                                     controller: _tocontroller,
                                     onChanged: (value) {
                                       setState(() {
@@ -68,6 +76,14 @@ class _CreationButtonState extends State<CreationButton> {
                                   width: 50.w,
                                   height: 150.h,
                                   child: TextField(
+                                    keyboardType:
+                                        TextInputType.number, // Only numbers
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter
+                                          .digitsOnly, // Only digits
+                                      LengthLimitingTextInputFormatter(
+                                          3), // Limit to 3 digits
+                                    ],
                                     onChanged: (value) {
                                       setState(() {
                                         _formValue = int.parse(value);
@@ -96,19 +112,52 @@ class _CreationButtonState extends State<CreationButton> {
                             if (_toValue > widget.numberOfAyahs) {
                               _toValue = widget.numberOfAyahs;
                             }
-                            Navigator.popAndPushNamed(
-                              context,
-                              RouteClass.editor,
-                              arguments: {
-                                "numberOfSura": widget.numberofsura,
-                                "start": _formValue,
-                                "end": _toValue,
-                                "sheikhName": "ar.abdulbasitmurattal",
-                                "background": backgrounds[6],
-                                "isAnimated": true,
-                                "color": Colors.white
-                              },
-                            );
+                            if (_formValue > widget.numberOfAyahs) {
+                              _formValue = 1;
+                            }
+                            if (_toValue < _formValue) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text(
+                                        textAlign: TextAlign.right,
+                                        "نطاق غير صالح"),
+                                    content: const Text(
+                                        textAlign: TextAlign.right,
+                                        "يجب أن تكون القيمة النهائية أكبر من أو تساوي القيمة الابتدائية."),
+                                    actions: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: Colors.green,
+                                        ),
+                                        child: const Text(
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                            "حسناً"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              Navigator.popAndPushNamed(
+                                context,
+                                RouteClass.editor,
+                                arguments: {
+                                  "numberOfSura": widget.numberofsura,
+                                  "start": _formValue,
+                                  "end": _toValue,
+                                  "sheikhName": "ar.abdulbasitmurattal",
+                                  "background": backgrounds[6],
+                                  "isAnimated": true,
+                                  "color": Colors.white
+                                },
+                              );
+                            }
                           },
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.green,
