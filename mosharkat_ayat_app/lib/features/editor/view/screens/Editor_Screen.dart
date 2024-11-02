@@ -76,22 +76,6 @@ class _Editor_ScreenState extends State<Editor_Screen> {
           numberOfSura: widget.numberOfSura,
           indexOfAyah: indexOfAyah,
         ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   items: [
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.brightness_2_outlined),
-        //       label: "سطوع الخلفية",
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.format_align_center),
-        //       label: "موضع الخط",
-        //     ),
-        //     BottomNavigationBarItem(
-        //       icon: Icon(Icons.colorize),
-        //       label: " لون الخط",
-        //     ),
-        //   ],
-        // ),
       );
     }));
   }

@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "com.example.mosharkat_ayat_app"
+    namespace = "com.ahmed.yasser.mosharkat_ayat_app"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -35,23 +35,37 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.mosharkat_ayat_app"
+        applicationId "com.ahmed.yasser.mosharkat_ayat_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 29
+       // minSdkVersion 26
+       minSdk = flutter.minSdkVersion
+       targetSdk = flutter.targetSdkVersion
        //minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
-
-    buildTypes {
+     signingConfigs {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            storeFile file('C:\\Users\\Ahmed\\my-new-upload-key.jks')
+            storePassword 'ForCode123$$'
+            keyAlias 'upload'
+            keyPassword 'ForCode123$$'
         }
     }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+    // buildTypes {
+    //     release {
+    //         // TODO: Add your own signing config for the release build.
+    //         // Signing with the debug keys for now, so `flutter run --release` works.
+    //         signingConfig = signingConfigs.debug
+    //     }
+    // }
 }
 
 flutter {
