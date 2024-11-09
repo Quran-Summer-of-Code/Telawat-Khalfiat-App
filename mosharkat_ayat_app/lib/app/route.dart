@@ -23,10 +23,6 @@ class RouteClass {
                   numberOfSura: data["numberOfSura"],
                   start: data["start"],
                   end: data["end"],
-                  sheikh: data["sheikhName"],
-                  background: data["background"],
-                  isAnimated: data["isAnimated"],
-                  backgourndColor: data["color"],
                 ));
       case recording:
         Map<String, dynamic> data = settings.arguments as Map<String, dynamic>;
@@ -67,10 +63,6 @@ class RouteClass {
                   numberOfSura: data["numberOfSura"],
                   start: data["start"],
                   end: data["end"],
-                  sheikh: data["sheikhName"],
-                  background: data["background"],
-                  isAnimated: data["isAnimated"],
-                  backgourndColor: data["color"],
                 ));
     }
   }

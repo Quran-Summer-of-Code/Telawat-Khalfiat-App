@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mosharkat_ayat_app/app/route.dart';
-import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
+
 import 'package:mosharkat_ayat_app/features/surasList/view_model/convert_number_to_arabic.dart';
 
 class Ayahitem extends StatelessWidget {
@@ -29,10 +29,7 @@ class Ayahitem extends StatelessWidget {
                       "numberOfSura": numberofsura,
                       "start": numberOfayah,
                       "end": numberOfayah,
-                      "sheikhName": "ar.abdulbasitmurattal",
-                      "background": backgrounds[6],
-                      "isAnimated": true,
-                      "color": Colors.white
+                      "color": const Color.fromARGB(255, 231, 224, 181)
                     });
               },
               child: Container(

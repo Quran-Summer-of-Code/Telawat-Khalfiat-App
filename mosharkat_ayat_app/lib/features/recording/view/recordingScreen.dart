@@ -66,7 +66,9 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   @override
   void dispose() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+
     _audioPlayer.dispose();
     super.dispose();
   }

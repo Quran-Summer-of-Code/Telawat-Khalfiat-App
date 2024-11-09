@@ -5,44 +5,42 @@ import 'package:mosharkat_ayat_app/app/route.dart';
 import 'package:mosharkat_ayat_app/features/editor/model/audioBitrate.dart';
 import 'package:mosharkat_ayat_app/features/editor/model/backgrounds.dart';
 import 'package:mosharkat_ayat_app/features/surasList/model/sheikh_model.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import '../../view_model/providers.dart';
 
-// ignore: must_be_immutable
-class Editor_Widget extends StatefulWidget {
-  String gifUrl;
-  List<String> audioUrls;
-  final List<String> ayah;
-  bool isAnimated;
-  Color backgourndColor;
-  final int start, end, numberOfSura, indexOfAyah;
+class Editor_Widget extends ConsumerStatefulWidget {
+  List<String> ayah;
+  int start, end, numberOfSura, indexOfAyah;
   Editor_Widget(
       {super.key,
-      required this.gifUrl,
-      required this.audioUrls,
       required this.ayah,
-      required this.isAnimated,
-      required this.backgourndColor,
       required this.start,
       required this.end,
       required this.numberOfSura,
       required this.indexOfAyah});
 
   @override
-  State<Editor_Widget> createState() => _Editor_WidgetState();
+  Editor_WidgetState createState() => Editor_WidgetState();
 }
 
-class _Editor_WidgetState extends State<Editor_Widget> {
+class Editor_WidgetState extends ConsumerState<Editor_Widget> {
   final AudioPlayer _audioPlayer = AudioPlayer();
   int _currentAudioIndex = 0;
   Duration duration = const Duration(seconds: 36);
-  double _brightness = 0.8;
-  String _sheikhName = "ar.abdulbasitmurattal";
+  late double _brightness;
+  late String _sheikhName;
+  late List<String> audioUrls = [];
+  late String gifUrl;
+  late bool isAnimated;
+  late Color backgourndColor;
   int _option = 0;
   double _down = 0, _up = 0, _fontSize = 24;
   bool _isPlaying = false;
   Color _currentColor = Colors.white;
+
   void _onAudioComplete() {
-    if (_currentAudioIndex < widget.audioUrls.length - 1) {
+    if (_currentAudioIndex < audioUrls.length - 1) {
       // Move to the next audio file
       setState(() {
         _currentAudioIndex++;
@@ -60,6 +58,17 @@ class _Editor_WidgetState extends State<Editor_Widget> {
   @override
   void initState() {
     super.initState();
+    _sheikhName = ref.read(sheikhNameProvider);
+    gifUrl = ref.read(gifUrlProvider);
+    isAnimated = ref.read(isAnimatedProvider);
+    _brightness = ref.read(brightnessProvider);
+    backgourndColor = ref.read(backgourndColorProvider);
+    int? bitRateTemp = bitRate[_sheikhName.toString()];
+    audioUrls.clear();
+    for (int i = widget.start - 1; i < widget.end; i++) {
+      audioUrls.add(
+          "https://cdn.islamic.network/quran/audio/$bitRateTemp/${_sheikhName.toString()}/${widget.indexOfAyah + i + 2}.mp3");
+    }
     _playAudio(_currentAudioIndex);
     _audioPlayer.onPlayerComplete.listen((event) {
       _onAudioComplete();
@@ -67,8 +76,8 @@ class _Editor_WidgetState extends State<Editor_Widget> {
   }
 
   void _playAudio(int index) async {
-    if (index < widget.audioUrls.length && _isPlaying) {
-      await _audioPlayer.play(UrlSource(widget.audioUrls[index]));
+    if (index < audioUrls.length && _isPlaying) {
+      await _audioPlayer.play(UrlSource(audioUrls[index]));
     }
   }
 
@@ -133,8 +142,12 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                       ? GestureDetector(
                           onTap: () {
                             setState(() {
-                              widget.gifUrl = backgrounds[index];
-                              widget.isAnimated = true;
+                              ref
+                                  .read(gifUrlProvider.notifier)
+                                  .update((state) => backgrounds[index]);
+                              ref
+                                  .read(isAnimatedProvider.notifier)
+                                  .update((state) => true);
                             });
                             Navigator.of(context).pop();
                           },
@@ -153,8 +166,13 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                       : GestureDetector(
                           onTap: () {
                             setState(() {
-                              widget.backgourndColor = staticBackgrounds[index];
-                              widget.isAnimated = false;
+                              ref
+                                  .read(backgourndColorProvider.notifier)
+                                  .update((state) => staticBackgrounds[index]);
+
+                              ref
+                                  .read(isAnimatedProvider.notifier)
+                                  .update((state) => false);
                             });
                             Navigator.of(context).pop();
                           },
@@ -185,6 +203,11 @@ class _Editor_WidgetState extends State<Editor_Widget> {
 
   @override
   Widget build(BuildContext context) {
+    _sheikhName = ref.watch(sheikhNameProvider);
+    gifUrl = ref.watch(gifUrlProvider);
+    isAnimated = ref.watch(isAnimatedProvider);
+    _brightness = ref.watch(brightnessProvider);
+    backgourndColor = ref.watch(backgourndColorProvider);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,16 +230,16 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                         0, 0, _brightness, 0, 0, // blue channel
                         0, 0, 0, 1, 0, // alpha channel
                       ]),
-                      child: widget.isAnimated
+                      child: isAnimated
                           ? Image.asset(
-                              "assets/backgrounds/${widget.gifUrl}",
+                              "assets/backgrounds/$gifUrl",
                               fit: BoxFit.cover,
                             )
                           : SizedBox(
                               width: 0.8.sw,
                               height: 0.6.sh,
                               child: Container(
-                                color: widget.backgourndColor,
+                                color: backgourndColor,
                               ))),
                 ),
                 SizedBox(
@@ -337,11 +360,11 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                     onPressed: () {
                       Navigator.popAndPushNamed(context, RouteClass.recording,
                           arguments: {
-                            "gifUrl": widget.gifUrl,
-                            "audioUrls": widget.audioUrls,
+                            "gifUrl": gifUrl,
+                            "audioUrls": audioUrls,
                             "ayah": widget.ayah,
-                            "isAnimated": widget.isAnimated,
-                            "backgourndColor": widget.backgourndColor,
+                            "isAnimated": isAnimated,
+                            "backgourndColor": backgourndColor,
                             "brightness": _brightness,
                             "down": _down,
                             "up": _up,
@@ -375,7 +398,9 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                         activeColor: const Color.fromARGB(255, 8, 90, 50),
                         onChanged: (value) {
                           setState(() {
-                            _brightness = value;
+                            ref.read(brightnessProvider.notifier).update(
+                                  (state) => value,
+                                );
                           });
                         },
                       ),
@@ -386,17 +411,19 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                           value: _sheikhName,
                           onChanged: (value) {
                             int? bitRateTemp = bitRate[value.toString()];
-                            widget.audioUrls.clear();
+                            audioUrls.clear();
                             for (int i = widget.start - 1;
                                 i < widget.end;
                                 i++) {
-                              widget.audioUrls.add(
+                              audioUrls.add(
                                   "https://cdn.islamic.network/quran/audio/$bitRateTemp/${value.toString()}/${widget.indexOfAyah + i + 2}.mp3");
                             }
                             _playAudio(0);
                             setState(() {
                               _currentAudioIndex = 0;
-                              _sheikhName = value.toString();
+                              ref.read(sheikhNameProvider.notifier).update(
+                                    (state) => value.toString(),
+                                  );
                             });
                           })
                       : _option == 3
@@ -526,6 +553,11 @@ class _Editor_WidgetState extends State<Editor_Widget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Icon(Icons.arrow_forward_ios,
+                      size: 16.0, color: Colors.grey),
+                ),
                 IconButton(
                   onPressed: () {
                     setState(() {
@@ -536,16 +568,19 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                       }
                     });
                   },
-                  icon: const Column(
+                  icon: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.brightness_2_outlined,
                         size: 24.0,
+                        color: (_option == 0) ? Colors.green : Colors.black,
                       ),
-                      Text(
-                        "سطوع الخلفية",
-                      ),
+                      Text("سطوع الخلفية",
+                          style: TextStyle(
+                              color: (_option == 0)
+                                  ? Colors.green
+                                  : Colors.black)),
                     ],
                   ),
                 ),
@@ -569,57 +604,26 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      _option = 3;
+                      if (_option == 3) {
+                        _option = -1;
+                      } else {
+                        _option = 3;
+                      }
                     });
                   },
-                  icon: const Column(
+                  icon: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.format_align_center,
                         size: 24.0,
+                        color: (_option == 3) ? Colors.green : Colors.black,
                       ),
-                      Text(
-                        "موضع الخط",
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _option = 4;
-                    });
-                  },
-                  icon: const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.wallet,
-                        size: 24.0,
-                      ),
-                      Text(
-                        'حجم الخط',
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _option = 2;
-                    });
-                  },
-                  icon: const Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.audio_file,
-                        size: 24.0,
-                      ),
-                      Text(
-                        'صوت الشيخ',
-                      ),
+                      Text("موضع الخط",
+                          style: TextStyle(
+                              color: (_option == 3)
+                                  ? Colors.green
+                                  : Colors.black)),
                     ],
                   ),
                 ),
@@ -627,17 +631,78 @@ class _Editor_WidgetState extends State<Editor_Widget> {
                   onPressed: () {
                     //_showBackGroundPicker();
                     setState(() {
-                      _option = 5;
+                      if (_option == 5) {
+                        _option = -1;
+                      } else {
+                        _option = 5;
+                      }
                     });
                   },
-                  icon: const Column(
+                  icon: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.image,
                         size: 24.0,
+                        color: (_option == 5) ? Colors.green : Colors.black,
                       ),
-                      Text('تغير الخلفية'),
+                      Text('تغير الخلفية',
+                          style: TextStyle(
+                              color: (_option == 5)
+                                  ? Colors.green
+                                  : Colors.black)),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (_option == 2) {
+                        _option = -1;
+                      } else {
+                        _option = 2;
+                      }
+                    });
+                  },
+                  icon: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.audio_file,
+                        size: 24.0,
+                        color: (_option == 2) ? Colors.green : Colors.black,
+                      ),
+                      Text('صوت الشيخ',
+                          style: TextStyle(
+                              color: (_option == 2)
+                                  ? Colors.green
+                                  : Colors.black)),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      if (_option == 4) {
+                        _option = -1;
+                      } else {
+                        _option = 4;
+                      }
+                    });
+                  },
+                  icon: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.wallet,
+                        size: 24.0,
+                        color: (_option == 4) ? Colors.green : Colors.black,
+                      ),
+                      Text('حجم الخط',
+                          style: TextStyle(
+                              color: (_option == 4)
+                                  ? Colors.green
+                                  : Colors.black)),
                     ],
                   ),
                 ),
