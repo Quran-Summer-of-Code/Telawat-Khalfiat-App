@@ -1,4 +1,4 @@
-package com.example.mosharkat_ayat_app
+package com.ahmed.yasser.mosharkat_ayat_app
 
 import io.flutter.embedding.android.FlutterActivity
 
