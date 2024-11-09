@@ -48,10 +48,10 @@ android {
     }
      signingConfigs {
         release {
-            storeFile file('C:\\Users\\Ahmed\\my-new-upload-key.jks')
-            storePassword 'ForCode123$$'
-            keyAlias 'upload'
-            keyPassword 'ForCode123$$'
+            storeFile file('')
+            storePassword ''
+            keyAlias ''
+            keyPassword ''
         }
     }
     buildTypes {
